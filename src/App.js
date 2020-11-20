@@ -15,7 +15,7 @@ let modalFlag=false;
 export const MovieContext = createContext(); 
 
 function App(props) {
-  const apiKey = "24eddd44b256251f253d6d5c6dc7fea0";
+  const apiKey = "";
   const searchUrl = "https://api.themoviedb.org/3/search/movie";
   // const baseUrl="https://api.themoviedb.org/3/discover/movie";
   const videoUrl="https://api.themoviedb.org/3/movie";
