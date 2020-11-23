@@ -31,7 +31,7 @@ export const StyledStarWrapper = styled.div`
 `;
 
 export const StyledTextWrapper = styled.div`
-    height:70px;
+    height:85px;
     width:auto;
 `;
 

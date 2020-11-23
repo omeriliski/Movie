@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 export const PaginateWrapper =Styled.div`
     display:flex;
     justify-content:center;
-    background-color:#c5cae9;
+    background-color:#ac3b61;
     padding-top:20px;
     position: fixed;
     top: 80px;

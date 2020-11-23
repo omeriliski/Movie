@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledDiscover = styled.div`
-    margin-top:170px;
+    padding-top:170px;
 `
 export const StyledButtonWrapper = styled.div`
     display:flex;

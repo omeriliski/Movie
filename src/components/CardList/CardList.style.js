@@ -10,7 +10,7 @@ export const StyledCardWrapper = styled.div`
     padding-top:30px;
     border: 0.0625rem solid rgba(0,0,0,0.2);
     box-shadow: 0.1875rem 0.125rem 0.625rem rgba(0,0,0,0.1);
-    background-color:#ede7f6;
+    background-color:#eee2dc;
     display:flex;
     justify-content: space-around;
     flex-wrap: wrap;

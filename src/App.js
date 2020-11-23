@@ -15,7 +15,7 @@ let modalFlag=false;
 export const MovieContext = createContext(); 
 
 function App(props) {
-  const apiKey = "";
+  const apiKey = "24eddd44b256251f253d6d5c6dc7fea0";
   const searchUrl = "https://api.themoviedb.org/3/search/movie";
   // const baseUrl="https://api.themoviedb.org/3/discover/movie";
   const videoUrl="https://api.themoviedb.org/3/movie";
@@ -23,6 +23,7 @@ function App(props) {
   const genresUrl="https://api.themoviedb.org/3/genre/movie/list";
   const discoverUrl="https://api.themoviedb.org/3/discover/movie";
   const imageUrl="https://image.tmdb.org/t/p/w500";
+  const popularPeopleUrl="https://api.themoviedb.org/3/person/popular";
 
   const [searchedFilm,setsearchedFilm]=useState("");
   const [movieData, setMovieData] = useState(null);
@@ -32,10 +33,17 @@ function App(props) {
   const [modalFlag,setModalFlag]=useState(false);
   const [genresData,setGenresData] = useState(false);
   const [peopleData,setPeopleData] = useState();
+  const [popularPeopleData,setPopularPeopleData] = useState();
   const [viewedFilm,setViewedFilm] = useState();
+  const [currentPage,setCurrentPage] = useState(1);
+  const [year1,setYear1] = useState();
+  const [year2,setYear2] = useState();
+  const [personId,setPersonId]=useState();
+  const [text,setText] = useState();
+
   // important for getting Data, 1:years, 2:genres 3:poplular actors
   const [tab, setTab] = useState(0);  
-  const [typeId,setTypeId] = useState(12);
+  const [genresId, setGenresId] = useState(12);
   
   // const [cPage,setCPage] =useState();
 
@@ -80,6 +88,9 @@ function App(props) {
     .then((res) => {
       setMovieData(res.data.results);
       setTotalPages(res.data.total_pages);
+      console.log(res);
+      console.log("genres:",genres);
+      console.log("pageNo:",pageNo);
     })  
     .catch((err) => console.log(err))
     
@@ -95,41 +106,80 @@ function App(props) {
     .catch((err) => console.log(err))
   }
 
-  const getMoviesbyYear=(year)=>{
-    axios.get(`${discoverUrl}?api_key=${apiKey}&primary_release_date.gte=${year}-01-01&primary_release_date.lte=${year}-12-31`)
+  const getMoviesbyYear=(year1,year2,pageNo)=>{
+    axios.get(`${discoverUrl}?api_key=${apiKey}&primary_release_date.gte=${year1}-01-01&primary_release_date.lte=${year2}-12-31&page=${pageNo}`)
     .then((res) => {
-      console.log("year:",res);
-      
+      setMovieData(res.data.results);
+      setTotalPages(res.data.total_pages);
     })  
     .catch((err) => console.log(err))
   }
 
-  useEffect(() =>{
-    // searchData(searchedFilm,1);    şimdilik kapattım !!!!!!
-    discoverMovies(typeId,1);
+  const getMoviesbyPerson=(personId,pageNo)=>{
+    console.log(`${discoverUrl}?api_key=${apiKey}&with_people=${personId}&page=${pageNo}`)
+    axios.get(`${discoverUrl}?api_key=${apiKey}&with_people=${personId}&page=${pageNo}`)
+    .then((res) => {
+      
+      console.log("PersonMovies:",res);
+      setMovieData(res.data.results);
+      setTotalPages(res.data.total_pages);
+    })  
+    .catch((err) => console.log(err))
+  }
+
+  const getPopularPeople=()=>{
+    axios.get(`${popularPeopleUrl}?api_key=${apiKey}&page=1`)
+    .then((res) => {
+      setPopularPeopleData(res.data.results);
+    })  
+    .catch((err) => console.log(err))
+  }
+
+  const fetchData=()=>{
+    getPopularPeople();
     searchGenres();
-    getMoviesbyYear(2010)
-  },[])
+    console.log("TABBBBB",tab);
+    switch (tab) {
+      case 0:
+        console.log("text:",text,"Currentpage:",currentPage);
+        searchData(text,currentPage) 
+        break;
+      case 1:
+          getMoviesbyYear(year1,year2,currentPage);
+        break;
+        case 2:
+          discoverMovies(genresId,currentPage);
+        break;
+        case 3:
+          getMoviesbyPerson(personId,currentPage);
+        break;
+      default:
+        break;
+    }
+  }
+
+  useEffect(() =>{
+    fetchData();
+  },[year1,currentPage,text,genresId,personId])
+  
 
   return (
     <div className="App">
-      <MyNavbar onSearched={text=>{
-        setsearchedFilm(text)
-        setIsSearched(!isSearched)  
-        searchData(text,1)   
-        //discoverMovies(28,1); şimdilik kapattım !!!!!!
-      }}/>
-      {/* <MyCarousel/> */}
       <MovieContext.Provider  value={{
-          movieData,genresData,totalPages,isSearched,fragman,viewedFilm,peopleData,tab,
-          youtubeUrl,imageUrl,
-          setTypeId,setViewedFilm,watch,getPeople,setPeopleData,setTab
-          }} >
+        movieData,genresData,totalPages,isSearched,fragman,viewedFilm,peopleData,tab,currentPage,
+        youtubeUrl,imageUrl,genresId,year1,year2,popularPeopleData,
+        setViewedFilm,setPeopleData,setTab,setGenresId,setCurrentPage,setText,setYear1,setYear2,setPersonId,
+        discoverMovies,fetchData,watch,getPeople
+        }} >
+
+        <MyNavbar onSearched={text=>{
+            
+          //discoverMovies(28,1); şimdilik kapattım !!!!!!
+        }}/>
+        {/* <MyCarousel/> */}
         {/* <Paginate onPageChanged={(currentPage)=>searchData(searchedFilm,currentPage)}/>  şimdilik kapattım !!!!!! */}
-        <Paginate onPageChanged={(currentPage)=>discoverMovies(typeId,currentPage)}/>
-        <DiscoverMenu onSelected={(id)=>{setTypeId(id)
-                                    discoverMovies(id,1);
-                                }}/> 
+        <Paginate />
+        <DiscoverMenu/> 
         <CardList />
         {modalFlag && <MyModal/>}
       </MovieContext.Provider>
@@ -138,9 +188,3 @@ function App(props) {
 }
 
 export default App;
-
-
-{/* !!!While I used Context, i deleted next line */}
-{/* <Paginate totalPages={totalPages} isSearched={isSearched} onPageChanged={(currentPage)=>searchData(searchedFilm,currentPage)}/> */}
-{/* <CardList movieData={movieData} onWatch={watch}/> */}
-{/* {modalFlag && <MyModal filmName={fragman.name} fragmanKey={fragman.key} youtubeUrl={youtubeUrl}/>} */}

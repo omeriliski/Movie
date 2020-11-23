@@ -13,7 +13,13 @@ export const Cards = (props) => {
     return(
         <StyledCardWrapper>
             <Card  width="14rem">
-                <CardImg top width="100%" height="300px" src={`${baseImageUrl}${props.movie.poster_path}`} alt="Card image cap" />
+                { props.movie.poster_path==undefined ?
+                <CardImg top width="100%" height="300px" 
+                 src={"https://minutes.co/wp-content/uploads/2019/05/art-of-saying-no.png"} alt="Card image cap" 
+                />
+                :  <CardImg top width="100%" height="300px" 
+                    src={`${baseImageUrl}${props.movie.poster_path}`} alt="Card image cap" 
+                />}
                 <CardBody >
                     <StyledTextWrapper>
                         <CardTitle tag="h6">{props.movie.title}</CardTitle>

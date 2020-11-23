@@ -13,7 +13,7 @@ import {
   DropdownItem,
   NavbarText
 } from 'reactstrap';
-import {Search} from '../Search';
+import { Search } from '../Search';
 import './navbar.css';
 
 export const MyNavbar = (props) => {
@@ -23,42 +23,48 @@ export const MyNavbar = (props) => {
 
   return (
     <div>
-      <Navbar className="color-nav" light expand="md" fixed="top">
-        
+      <Navbar className="pl-5" light expand="md" fixed="top" style={{ backgroundColor: '#123c69' }}>
+
         {/* <NavbarBrand href="/">reactstrap</NavbarBrand> */}
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/">Home</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="style-text" href="./discover">Discover</NavLink>
+              <NavLink href="/"><span className="style-text font-weight-bold">Home</span> </NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Last Films
+                <span className="style-text font-weight-bold">Discover</span>
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu left>
                 <DropdownItem>
-                  2020
+                  Years of Movies
                 </DropdownItem>
                 <DropdownItem>
-                  2019
+                  Types of Movies
                 </DropdownItem>
                 <DropdownItem />
                 <DropdownItem>
-                  2018
+                  Popular People's Movies
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <NavLink href="/components/">About us</NavLink>
+              <NavLink className="style-text" href="./discover">
+                <span className="style-text font-weight-bold">Privacy Policy</span>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/components/"><span
+                className="style-text font-weight-bold">About</span>
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
-        <Search onSearched={value=>props.onSearched(value)}/>
-        <NavbarText>Simple Text</NavbarText>
+        <Search />
+        <img
+          width="70" height="70"
+          src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" />
       </Navbar>
     </div>
   );

@@ -1,0 +1,40 @@
+export const years1=[{
+    year1:"1900",
+    year2:"1980"
+},
+{
+    year1:"1981",
+    year2:"1990"
+},
+{
+    year1:"1991",
+    year2:"2000"
+},
+{
+    year1:"2001",
+    year2:"2005"
+},
+{
+    year1:"2006",
+    year2:"2010"
+},
+{
+    year1:"2011",
+    year2:"2015"
+}]
+
+export const years2=[{
+    year:"2016"
+},
+{
+    year:"2017"
+},
+{
+    year:"2018"
+},
+{
+    year:"2019",
+},
+{
+    year:"2020",
+}]

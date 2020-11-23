@@ -2,31 +2,35 @@ import React, { useEffect, useState,useContext } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import {PaginateWrapper} from './Pagination.style';
 import {MovieContext} from '../../App';
+
 export const Paginate = (props) => {
 
   const consumer = useContext(MovieContext);
-  const [currentPage,setcurrentPage] = useState(1);
-
+  
+  let currentPage = consumer.currentPage;
+  console.log("currentpage:",currentPage);
+  console.log("consumer.totalpage",consumer.totalPages);
+  
   const pageSetter=async(page)=>{
-    setcurrentPage(page);
-    props.onPageChanged(page);
-    console.log(page);
+    consumer.setCurrentPage(page);
+    // consumer.discoverMovies(consumer.genresId,page);
+    //consumer.fetchData();
   }
   const pageIncreaser=()=>{
     if(currentPage+1 <=  consumer.totalPages) 
     {
-      setcurrentPage(currentPage+1);
-      props.onPageChanged(currentPage+1);
-      console.log(currentPage+1);
+      consumer.setCurrentPage(currentPage+1);
+      // consumer.discoverMovies(consumer.genresId,currentPage+1);
+      //consumer.fetchData();
     }
   }
   const pageDecreaser=()=>{
-    setcurrentPage(currentPage-1);
-    props.onPageChanged(currentPage-1);
-    console.log(currentPage-1);
+    consumer.setCurrentPage(currentPage-1);
+    //consumer.fetchData();
+    // consumer.discoverMovies(consumer.genresId,currentPage-1);
   }
   useEffect(
-    ()=>setcurrentPage(1)
+    ()=>consumer.setCurrentPage(1)
   ,[consumer.isSearched])
   return (
     <PaginateWrapper>
@@ -48,8 +52,8 @@ export const Paginate = (props) => {
             {currentPage >= 2 ? currentPage-1 : "-"}
             </PaginationLink>
           </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink  href="#" onClick={()=>pageSetter(currentPage)}>
+          <PaginationItem active >
+            <PaginationLink   href="#" onClick={()=>pageSetter(currentPage)}>
             {currentPage}
             </PaginationLink>
           </PaginationItem>
