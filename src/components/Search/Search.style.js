@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledSearchWrapper = styled.div`
     width: 30%;
     height:70px;
-    /* background-color:#a1887f; */
     display:flex;
     justify-content: center;
     align-items:center;

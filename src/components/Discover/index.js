@@ -16,8 +16,6 @@ export const DiscoverMenu = (props) => {
     const genresSelected=(genresId)=>{
         consumer.setGenresId(genresId);
         consumer.setCurrentPage(1);
-        //consumer.fetchData();
-        // consumer.discoverMovies(genresId,1)
     }
 
     const years1Selected=(year1,year2)=>{
@@ -38,7 +36,6 @@ export const DiscoverMenu = (props) => {
         consumer.setCurrentPage(1);
     }
 
-    
     return (
         <StyledDiscover style={{backgroundColor: '#eee2dc'}}>
             <Button color="info" onClick={()=>toggle(1)} style={{ marginBottom: '1rem' }}>Years of Movies</Button>
@@ -67,8 +64,6 @@ export const DiscoverMenu = (props) => {
                                 onClick={()=>personSelected(person.id)}
                                 size="sm" outline >{person.name}
                             </Button> })}
-                                
-                           
                         </StyledButtonWrapper>
                     </CardBody>
                 </Card>

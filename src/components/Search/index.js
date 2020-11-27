@@ -1,9 +1,5 @@
 import React,{useContext} from 'react';
-import {
-    StyledSearchWrapper,
-    StyledSearchItem,
-    StyledSearch
-} from "./Search.style"
+import {StyledSearchWrapper} from "./Search.style"
 import {Input} from 'reactstrap';
 import { MovieContext } from '../../App';
 
@@ -15,9 +11,7 @@ export const Search = (props) => {
         consumer.setTab(0);
         consumer.setText(text);
         consumer.setCurrentPage(1);
-        consumer.fetchData();   
-        // setIsSearched(!isSearched)  
-        // searchData(text,1)
+        consumer.fetchData();  
     }
     return(
         <StyledSearchWrapper>

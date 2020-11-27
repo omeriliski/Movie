@@ -13,21 +13,15 @@ export const Paginate = (props) => {
   
   const pageSetter=async(page)=>{
     consumer.setCurrentPage(page);
-    // consumer.discoverMovies(consumer.genresId,page);
-    //consumer.fetchData();
   }
   const pageIncreaser=()=>{
     if(currentPage+1 <=  consumer.totalPages) 
     {
       consumer.setCurrentPage(currentPage+1);
-      // consumer.discoverMovies(consumer.genresId,currentPage+1);
-      //consumer.fetchData();
     }
   }
   const pageDecreaser=()=>{
     consumer.setCurrentPage(currentPage-1);
-    //consumer.fetchData();
-    // consumer.discoverMovies(consumer.genresId,currentPage-1);
   }
   useEffect(
     ()=>consumer.setCurrentPage(1)
@@ -46,7 +40,6 @@ export const Paginate = (props) => {
               {currentPage >= 3 ? currentPage-2 : "-"}
             </PaginationLink>
           </PaginationItem>
-          {/* disabled={props.totalPages<2} */}
           <PaginationItem > 
             <PaginationLink disabled={currentPage < 2} onClick={()=>pageSetter(currentPage-1)}>
             {currentPage >= 2 ? currentPage-1 : "-"}

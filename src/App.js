@@ -1,11 +1,8 @@
 import React,{ useState,useEffect, createContext } from 'react';
 import './App.css';
 import {CardList} from "./components/CardList";
-import {Menu} from "./components/Menu";
 import {Paginate} from './components/Pagination';
 import {MyNavbar} from './components/Navbar';
-import {MyCarousel} from './components/Carousel';
-import {WatchVideo} from './components/WatchVideo';
 import {MyModal} from './components/Modal';
 import axios from "axios";
 import { DiscoverMenu } from './components/Discover';
@@ -17,7 +14,6 @@ export const MovieContext = createContext();
 function App(props) {
   const apiKey = "24eddd44b256251f253d6d5c6dc7fea0";
   const searchUrl = "https://api.themoviedb.org/3/search/movie";
-  // const baseUrl="https://api.themoviedb.org/3/discover/movie";
   const videoUrl="https://api.themoviedb.org/3/movie";
   const youtubeUrl="https://www.youtube.com/watch?v=";
   const genresUrl="https://api.themoviedb.org/3/genre/movie/list";
@@ -44,11 +40,8 @@ function App(props) {
   // important for getting Data, 1:years, 2:genres 3:poplular actors
   const [tab, setTab] = useState(0);  
   const [genresId, setGenresId] = useState(12);
-  
-  // const [cPage,setCPage] =useState();
 
   const searchData = (text,pageNo) => {
-    // text = text==="" ? "a":text;
     axios.get(searchUrl,{
         params:{
             api_key: apiKey,
@@ -70,7 +63,7 @@ function App(props) {
       setModalFlag(true);
   })  
   .catch((err) => console.log(err));
-  //don't delete hier,for modal
+  //for modal
   setModalFlag(false) ;
   }
 
@@ -171,13 +164,8 @@ function App(props) {
         setViewedFilm,setPeopleData,setTab,setGenresId,setCurrentPage,setText,setYear1,setYear2,setPersonId,
         discoverMovies,fetchData,watch,getPeople
         }} >
-
         <MyNavbar onSearched={text=>{
-            
-          //discoverMovies(28,1); şimdilik kapattım !!!!!!
         }}/>
-        {/* <MyCarousel/> */}
-        {/* <Paginate onPageChanged={(currentPage)=>searchData(searchedFilm,currentPage)}/>  şimdilik kapattım !!!!!! */}
         <Paginate />
         <DiscoverMenu/> 
         <CardList />

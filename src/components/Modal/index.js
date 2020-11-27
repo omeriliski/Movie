@@ -32,8 +32,6 @@ export const MyModal = (props) => {
                 <Media heading>
                   <h6 className="text-danger">GENRES: </h6>
                   {consumer.viewedFilm.genre_ids.map(e=><h6 className="text-success" >{consumer.genresData.find(a=>e==a.id).name}</h6>)}
-                    {/* // consumer.genresData.find(e=>e.id==consumer.viewedFilm.genre_ids[0]).name}
-                    // consumer.genresData.find(e=>(consumer.viewedFilm.genre_ids.indexOf(e.id)>-1)).name  */}
                 <Media heading heading className="mt-4">
                   <h6 className="text-danger d-block">RELEASE DATE:</h6>
                   <h6 className="text-success d-block">{consumer.viewedFilm.release_date}</h6>
@@ -109,8 +107,6 @@ export const MyModal = (props) => {
         <Media className="text-center">
           {consumer.viewedFilm.overview}
         </Media>
-          {/* <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button> */}
         </ModalFooter>
       </Modal>
     </div>

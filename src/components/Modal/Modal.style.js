@@ -7,7 +7,6 @@ export const FilmBody = styled.div`
 export const FilmDetails = styled.div`
     margin-left:20px;
     padding:10px;
-    /* background-color:#F3F3F3; */
     border-radius:10px;
     border:1px solid #D9D6DA;
     display:flex;
